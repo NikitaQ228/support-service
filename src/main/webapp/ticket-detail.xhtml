@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Ticket ##{ticketDetailBean.ticket.ticketId} - Ticket Support</title>
+    <h:outputStylesheet library="css" name="common.css" />
+    <h:outputStylesheet library="css" name="ticket-detail.css" />
+</h:head>
+
+<h:body>
+    <!-- HEADER -->
+    <header class="app-header">
+        <h1>Ticket Support System</h1>
+    </header>
+
+    <div class="container">
+        <!-- NAVIGATION -->
+        <div class="detail-navigation">
+            <h:link outcome="tickets" styleClass="btn btn-secondary">
+                &#8592; Back to List
+            </h:link>
+        </div>
+
+        <h:panelGroup layout="block" styleClass="card" rendered="#{empty ticketDetailBean.ticket}">
+            <div class="card-body">#{ticketDetailBean.errorMessage}</div>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" styleClass="detail-grid" rendered="#{not empty ticketDetailBean.ticket}">
+            <!-- TICKET DETAILS -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Ticket Details</h2>
+                    <span class="badge status-#{ticketDetailBean.ticket.status}">
+                        #{ticketDetailBean.ticket.status}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <table class="detail-table">
+                        <tr>
+                            <td class="detail-label">ID</td>
+                            <td class="detail-value">##{ticketDetailBean.ticket.ticketId}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Subject</td>
+                            <td class="detail-value">#{ticketDetailBean.ticket.subject}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Description</td>
+                            <td class="detail-value">
+                                <h:outputText value="#{ticketDetailBean.ticket.description}"
+                                              styleClass="multiline #{empty ticketDetailBean.ticket.description ? 'empty' : ''}"
+                                              escape="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Type</td>
+                            <td class="detail-value">#{ticketDetailBean.ticket.ticketType}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Channel</td>
+                            <td class="detail-value">#{ticketDetailBean.ticket.channel}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Priority</td>
+                            <td class="detail-value">
+                                <span class="badge priority-#{ticketDetailBean.ticket.priority}">
+                                    #{ticketDetailBean.ticket.priority}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Purchase Date</td>
+                            <td class="detail-value">#{ticketDetailBean.ticket.dateOfPurchase}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Product</td>
+                            <td class="detail-value">
+                                <h:outputText value="#{ticketDetailBean.ticket.productPurchased}"
+                                              styleClass="#{empty ticketDetailBean.ticket.productPurchased ? 'empty' : ''}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Resolution</td>
+                            <td class="detail-value">
+                                <h:outputText value="#{ticketDetailBean.ticket.resolution}"
+                                              styleClass="multiline #{empty ticketDetailBean.ticket.resolution ? 'empty' : ''}"
+                                              escape="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">First Response</td>
+                            <td class="detail-value">#{ticketDetailBean.ticket.firstResponseTime}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Time to Resolution</td>
+                            <td class="detail-value">#{ticketDetailBean.ticket.timeToResolution}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Satisfaction</td>
+                            <td class="detail-value">
+                                <h:outputText value="#{ticketDetailBean.ticket.satisfactionRating}"
+                                              rendered="#{ticketDetailBean.ticket.satisfactionRating != null}" />
+                                <h:outputText value="Not rated"
+                                              styleClass="empty"
+                                              rendered="#{ticketDetailBean.ticket.satisfactionRating == null}" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CUSTOMER DETAILS -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Customer</h2>
+                </div>
+                <div class="card-body">
+                    <table class="detail-table">
+                        <tr>
+                            <td class="detail-label">Name</td>
+                            <td class="detail-value">#{ticketDetailBean.ticket.customerName}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Email</td>
+                            <td class="detail-value">#{ticketDetailBean.ticket.customerEmail}</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Age</td>
+                            <td class="detail-value">
+                                <h:outputText value="#{ticketDetailBean.ticket.customerAge}"
+                                              rendered="#{ticketDetailBean.ticket.customerAge != null}" />
+                                <h:outputText value="N/A"
+                                              styleClass="empty"
+                                              rendered="#{ticketDetailBean.ticket.customerAge == null}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Gender</td>
+                            <td class="detail-value">#{ticketDetailBean.ticket.customerGender}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </h:panelGroup>
+    </div>
+</h:body>
+</html>
