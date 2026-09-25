@@ -1,0 +1,74 @@
+.card {
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.card-body {
+    padding: 24px;
+}
+
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.detail-table tr:not(:last-child) td {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-table td {
+    padding: 12px 0;
+    vertical-align: top;
+}
+
+.detail-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 200px;
+}
+
+.detail-value {
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.multiline {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.btn {
+    text-decoration: none;
+}
+
+.detail-navigation {
+    margin-bottom: 16px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .detail-grid { grid-template-columns: 1fr; }
+    .detail-label { width: 120px; }
+}
