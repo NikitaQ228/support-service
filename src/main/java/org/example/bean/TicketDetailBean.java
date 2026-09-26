@@ -2,18 +2,26 @@ package org.example.bean;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import lombok.Getter;
+import lombok.Setter;
 import org.example.dto.TicketDetailDTO;
+import org.example.dto.TicketFormDTO;
+import org.example.enums.TicketChannel;
+import org.example.enums.TicketPriority;
+import org.example.enums.TicketStatus;
+import org.example.enums.TicketType;
+import org.example.exception.TicketOperationException;
 import org.example.service.TicketService;
 
 import java.io.Serializable;
 import java.util.Map;
 
 /**
- * Модель JSF-страницы с подробной информацией об одном обращении.
+ * Модель JSF-страницы с подробной информацией и редактированием обращения.
  * Получает ID из параметра URL и хранит данные в области видимости страницы.
  */
 @Named
@@ -28,6 +36,12 @@ public class TicketDetailBean implements Serializable {
 
     @Getter
     private String errorMessage;
+
+    @Getter
+    private boolean editing;
+
+    @Getter @Setter
+    private TicketFormDTO editForm;
 
     /**
      * Проверяет параметр {@code ticketId} и загружает обращение при открытии страницы.
@@ -63,5 +77,85 @@ public class TicketDetailBean implements Serializable {
     public void loadTicket(Long ticketId) {
         this.ticket = ticketService.getTicketById(ticketId);
         errorMessage = ticket == null ? "Ticket not found." : null;
+    }
+
+    /** Копирует текущую карточку в форму и включает режим редактирования. */
+    public void startEdit() {
+        if (ticket != null) {
+            editForm = TicketFormDTO.fromDetail(ticket);
+            editing = true;
+        }
+    }
+
+    /** Отменяет редактирование без обращения к базе данных. */
+    public void cancelEdit() {
+        editForm = null;
+        editing = false;
+        FacesFormReset.reset("ticketEditor");
+    }
+
+    /**
+     * Сохраняет изменения через EJB и обновляет отображаемую карточку.
+     * При ошибке оставляет форму открытой с введёнными значениями.
+     */
+    public void save() {
+        if (ticket == null || !editing) {
+            return;
+        }
+        try {
+            ticket = ticketService.updateTicket(ticket.getTicketId(), editForm);
+            cancelEdit();
+        } catch (TicketOperationException e) {
+            showMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
+        }
+    }
+
+    /**
+     * Удаляет обращение и направляет оператора к списку. Подтверждение удаления
+     * выполняется в интерфейсе до отправки формы.
+     *
+     * @return переход на список после удаления либо {@code null} при ошибке
+     */
+    public String delete() {
+        if (ticket == null) {
+            return null;
+        }
+        try {
+            ticketService.deleteTicket(ticket.getTicketId());
+            return "tickets?faces-redirect=true";
+        } catch (TicketOperationException e) {
+            showMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Добавляет сообщение для текущей страницы JSF.
+     *
+     * @param severity важность сообщения
+     * @param text текст для оператора
+     */
+    private void showMessage(FacesMessage.Severity severity, String text) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, text, null));
+    }
+
+    /** @return все статусы обращения для формы */
+    public TicketStatus[] getAvailableStatuses() {
+        return TicketStatus.values();
+    }
+
+    /** @return все приоритеты обращения для формы */
+    public TicketPriority[] getAvailablePriorities() {
+        return TicketPriority.values();
+    }
+
+    /** @return все категории обращения для формы */
+    public TicketType[] getAvailableTicketTypes() {
+        return TicketType.values();
+    }
+
+    /** @return все каналы обращения для формы */
+    public TicketChannel[] getAvailableChannels() {
+        return TicketChannel.values();
     }
 }

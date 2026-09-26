@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>Add Customer - Ticket Support</title>
+    <h:outputStylesheet library="css" name="common.css" />
+    <h:outputStylesheet library="css" name="forms.css" />
+</h:head>
+
+<h:body>
+    <ui:include src="/WEB-INF/fragments/header.xhtml" />
+
+    <main class="container form-page form-page-narrow">
+        <div class="form-navigation">
+            <h:link outcome="tickets" styleClass="btn btn-secondary">&#8592; Back to List</h:link>
+        </div>
+
+        <h:form id="createCustomerForm" styleClass="card form-card">
+            <div class="form-card-header"><h2>Add Customer</h2></div>
+            <div class="form-card-body">
+                <h:messages styleClass="form-messages" infoClass="message-info" errorClass="message-error" />
+                <div class="form-grid">
+                    <div class="form-field form-field-wide">
+                        <h:outputLabel for="customerName" value="Name *" />
+                        <h:inputText id="customerName" value="#{customerCreateBean.form.name}"
+                                     styleClass="form-control" maxlength="150" required="true"
+                                     requiredMessage="Customer name is required." />
+                    </div>
+                    <div class="form-field form-field-wide">
+                        <h:outputLabel for="customerEmail" value="Email *" />
+                        <h:inputText id="customerEmail" value="#{customerCreateBean.form.email}"
+                                     styleClass="form-control" maxlength="150" required="true"
+                                     requiredMessage="Customer email is required." pt:type="email"
+                                     pt:placeholder="example@mail.com" />
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="customerAge" value="Age" />
+                        <h:inputText id="customerAge" value="#{customerCreateBean.form.age}"
+                                     styleClass="form-control" pt:type="number" pt:min="0" />
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="customerGender" value="Gender" />
+                        <h:selectOneMenu id="customerGender" value="#{customerCreateBean.form.gender}"
+                                         styleClass="form-control">
+                            <f:selectItem itemLabel="Select gender" itemValue="#{null}" />
+                            <f:selectItems value="#{customerCreateBean.availableGenders}" var="g"
+                                           itemLabel="#{g}" itemValue="#{g}" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+            </div>
+            <div class="form-card-actions">
+                <h:commandButton value="Add Customer" styleClass="btn btn-primary"
+                                 action="#{customerCreateBean.create}" />
+            </div>
+        </h:form>
+    </main>
+</h:body>
+</html>

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
     <title>Ticket Support</title>
@@ -10,19 +12,18 @@
 </h:head>
 
 <h:body>
-    <!-- HEADER -->
-    <header class="app-header">
-        <h1>Ticket Support System</h1>
-    </header>
+    <ui:include src="/WEB-INF/fragments/header.xhtml" />
 
     <div class="container">
+        <h:messages globalOnly="true" styleClass="form-messages" infoClass="message-info"
+                    errorClass="message-error" />
         <!-- FILTERS -->
         <div class="card">
             <h:form>
                 <div class="filters">
                     <div class="filter-group">
-                        <label for="emailInput">Customer Email</label>
-                        <h:inputText id="emailInput" value="#{ticketListBean.email}" placeholder="example@mail.com" />
+                        <h:outputLabel for="emailInput" value="Customer Email" />
+                        <h:inputText id="emailInput" value="#{ticketListBean.email}" pt:placeholder="Part of email" />
                     </div>
 
                     <div class="filter-group">
@@ -67,7 +68,7 @@
 
                         <h:column>
                             <f:facet name="header">Email</f:facet>
-                            #{ticket.customerEmail}
+                            <h:outputText value="#{ticket.customerEmail}" />
                         </h:column>
 
                         <h:column>
@@ -77,7 +78,7 @@
 
                         <h:column>
                             <f:facet name="header">Subject</f:facet>
-                            #{ticket.subject}
+                            <h:outputText value="#{ticket.subject}" />
                         </h:column>
 
                         <h:column>
@@ -116,5 +117,6 @@
             </h:form>
         </div>
     </div>
+
 </h:body>
 </html>

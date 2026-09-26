@@ -54,10 +54,6 @@
     overflow-wrap: anywhere;
 }
 
-.btn {
-    text-decoration: none;
-}
-
 .detail-navigation {
     margin-bottom: 16px;
 }
@@ -68,7 +64,46 @@
     gap: 24px;
 }
 
+.detail-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+}
+
+.detail-actions > .btn + .btn {
+    margin-left: 12px;
+}
+
+.detail-actions .btn {
+    min-width: 112px;
+}
+
+.edit-ticket-id {
+    display: inline-flex;
+    padding: 6px 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: var(--info-bg);
+    color: var(--info-text);
+    font-weight: 600;
+}
+
+.edit-form-grid .form-control {
+    min-height: 42px;
+}
+
+.edit-form-grid .form-textarea {
+    min-height: 104px;
+}
+
+@media (max-width: 1100px) {
+    .edit-form-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 768px) {
     .detail-grid { grid-template-columns: 1fr; }
     .detail-label { width: 120px; }
+    .card-header { flex-wrap: wrap; gap: 12px; }
 }

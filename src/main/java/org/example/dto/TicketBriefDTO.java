@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.example.enums.TicketPriority;
 import org.example.enums.TicketStatus;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TicketBriefDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private Long ticketId;

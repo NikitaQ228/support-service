@@ -25,28 +25,20 @@
     color: var(--text-secondary);
 }
 
-.filters input, .filters select {
+.filters input[type="text"], .filters select {
     padding: 8px 12px;
-    border: 1px solid var(--border-color);
+    border: 0;
     border-radius: 8px;
     font-size: 0.95rem;
     color: var(--text-main);
-    background-color: #fff;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #f9fafb;
+    transition: background-color 0.2s;
     min-width: 180px;
 }
 
-.filters input:focus, .filters select:focus {
+.filters input[type="text"]:focus, .filters select:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
-
-.btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
+    background-color: #eef2ff;
 }
 
 .table-card {
@@ -124,7 +116,7 @@ tr:hover td {
         padding: 16px;
     }
 
-    .filters input, .filters select {
+    .filters input[type="text"], .filters select {
         min-width: 100%;
     }
 
@@ -133,4 +125,5 @@ tr:hover td {
         gap: 12px;
         padding: 16px;
     }
+
 }

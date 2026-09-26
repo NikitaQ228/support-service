@@ -37,7 +37,7 @@ public class Customer {
     private Gender gender;
 
     /** Обращения клиента; обратная сторона связи с {@link Ticket}. */
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
 
     /**

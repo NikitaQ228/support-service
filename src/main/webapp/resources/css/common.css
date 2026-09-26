@@ -41,6 +41,18 @@ body {
     gap: 10px;
 }
 
+.header-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.header-actions > .btn + .btn {
+    margin-left: 12px;
+}
+
 .container {
     max-width: 1200px;
     margin: 32px auto;
@@ -66,6 +78,22 @@ body {
     align-items: center;
     justify-content: center;
     gap: 6px;
+    text-decoration: none;
+}
+
+a.btn:link,
+a.btn:visited,
+a.btn:hover,
+a.btn:focus {
+    text-decoration: none;
+}
+
+a.btn-primary:visited {
+    color: white;
+}
+
+a.btn-secondary:visited {
+    color: var(--text-main);
 }
 
 .btn-primary {
@@ -89,6 +117,103 @@ body {
     background-color: #e5e7eb;
 }
 
+.btn-danger {
+    background-color: var(--danger-bg);
+    color: var(--danger-text);
+}
+
+.btn-danger:hover {
+    background-color: #fecaca;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    padding: 8px 0 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.form-field:focus-within {
+    border-bottom-color: var(--primary-color);
+}
+
+.form-field label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 4px;
+    border: 0;
+    border-radius: 6px;
+    font: inherit;
+    color: var(--text-main);
+    background-color: transparent;
+    transition: background-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    background-color: #f5f3ff;
+}
+
+.form-control::placeholder {
+    color: var(--text-secondary);
+}
+
+.form-textarea {
+    resize: vertical;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 24px;
+}
+
+.form-field-wide {
+    grid-column: 1 / -1;
+}
+
+.form-messages {
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+}
+
+.form-messages:empty {
+    display: none;
+}
+
+.form-messages li {
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.message-info {
+    color: var(--success-text);
+    background: var(--success-bg);
+}
+
+.message-error {
+    color: var(--danger-text);
+    background: var(--danger-bg);
+}
+
 .badge {
     display: inline-flex;
     align-items: center;
@@ -109,6 +234,8 @@ body {
 .priority-Low { background-color: #f3f4f6; color: #4b5563; }
 
 @media (max-width: 768px) {
-    .app-header { padding: 16px 20px; }
+    .app-header { padding: 16px 20px; flex-wrap: wrap; gap: 12px; }
+    .header-actions { width: 100%; margin-left: 0; flex-wrap: wrap; justify-content: flex-end; }
     .container { margin: 16px auto; padding: 0 16px; }
+    .form-grid { grid-template-columns: 1fr; }
 }
