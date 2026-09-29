@@ -25,6 +25,6 @@
 
 ### Развёртывание
 
-1. Создайте базу PostgreSQL для приложения. Примените [init_database.sql](src/main/resources/script/init_database.sql) к этой базе, например из корня проекта: `psql -U <пользователь> -d <база> -f src/main/resources/script/init_database.sql`. Скрипт создаёт таблицы, загружает данные только в пустую базу.
+1. Создайте базу PostgreSQL для приложения. Примените [init_database.sql](src/main/resources/script/init_database.sql) к этой базе, например из корня проекта: `psql -v ON_ERROR_STOP=1 -U <пользователь> -d <база> -f src/main/resources/script/init_database.sql`. Скрипт создаёт таблицы, загружает данные только в пустую базу.
 2. В GlassFish или другом сервере, совместимом с Jakarta EE 10, установите JDBC-драйвер PostgreSQL, создайте JDBC connection pool для этой базы и JDBC resource с JNDI-именем `jdbc/supportDS`. Настройте URL, пользователя и пароль подключения; проверьте соединение в консоли администратора. Имя ресурса должно совпадать с [persistence.xml](src/main/resources/META-INF/persistence.xml).
 3. Соберите WAR командой из раздела выше и загрузите `target/support-service-1.0-SNAPSHOT.war` через консоль администратора сервера. Откройте развёрнутое приложение по контекстному пути, указанному сервером. Для развёртывания IDE не требуется.

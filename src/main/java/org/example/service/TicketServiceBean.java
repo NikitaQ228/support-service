@@ -45,7 +45,7 @@ public class TicketServiceBean implements TicketService {
         // --- COUNT ---
         CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
         Root<Ticket> countRoot = countQuery.from(Ticket.class);
-        Join<Ticket, Customer> countCustomerJoin = countRoot.join("customer", JoinType.LEFT);
+        Join<Ticket, Customer> countCustomerJoin = countRoot.join("customer", JoinType.INNER);
         countQuery.select(cb.count(countRoot));
         countQuery.where(buildPredicates(cb, countRoot, countCustomerJoin, filter)
                 .toArray(new Predicate[0]));
@@ -54,7 +54,7 @@ public class TicketServiceBean implements TicketService {
         // --- DATA ---
         CriteriaQuery<Tuple> dataQuery = cb.createQuery(Tuple.class);
         Root<Ticket> root = dataQuery.from(Ticket.class);
-        Join<Ticket, Customer> customerJoin = root.join("customer", JoinType.LEFT);
+        Join<Ticket, Customer> customerJoin = root.join("customer", JoinType.INNER);
 
         dataQuery.multiselect(
                 root.get("ticketId").alias("ticketId"),
@@ -90,7 +90,7 @@ public class TicketServiceBean implements TicketService {
     @Override
     public TicketDetailDTO getTicketById(Long id) {
         return em.createQuery(
-                        "SELECT t FROM Ticket t LEFT JOIN FETCH t.customer WHERE t.ticketId = :id",
+                        "SELECT t FROM Ticket t JOIN FETCH t.customer WHERE t.ticketId = :id",
                         Ticket.class)
                 .setParameter("id", id)
                 .getResultList()

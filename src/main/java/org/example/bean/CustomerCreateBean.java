@@ -1,6 +1,5 @@
 package org.example.bean;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -28,16 +27,6 @@ public class CustomerCreateBean implements Serializable {
 
     @Getter @Setter
     private CustomerFormDTO form = new CustomerFormDTO();
-
-    /** Подставляет email, переданный из предложения создать отсутствующего клиента. */
-    @PostConstruct
-    public void init() {
-        String email = FacesContext.getCurrentInstance().getExternalContext()
-                .getRequestParameterMap().get("email");
-        if (email != null && email.length() <= 150) {
-            form.setEmail(email);
-        }
-    }
 
     /**
      * Сохраняет клиента и возвращает оператора к списку обращений.

@@ -11,6 +11,7 @@ import org.example.dto.TicketBriefDTO;
 import org.example.dto.TicketFilterDTO;
 import org.example.enums.TicketPriority;
 import org.example.enums.TicketStatus;
+import org.example.jsf.FacesFormReset;
 import org.example.service.TicketService;
 
 import java.io.Serializable;
@@ -71,6 +72,7 @@ public class TicketListBean implements Serializable {
         status = null;
         priority = null;
         currentPage = 0;
+        FacesFormReset.reset("filterForm");
         loadTickets();
     }
 

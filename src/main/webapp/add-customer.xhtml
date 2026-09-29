@@ -5,6 +5,11 @@
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+<f:view>
+<f:metadata>
+    <f:viewParam name="email" value="#{customerCreateBean.form.email}" />
+</f:metadata>
+
 <h:head>
     <title>Add Customer - Ticket Support</title>
     <h:outputStylesheet library="css" name="common.css" />
@@ -60,4 +65,5 @@
         </h:form>
     </main>
 </h:body>
+</f:view>
 </html>

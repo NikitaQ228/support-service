@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 /**
  * JPA-сущность обращения в службу поддержки, соответствующая таблице {@code tickets}.
- * Каждое обращение может быть связано с одним клиентом.
+ * Каждое обращение обязательно связано с одним клиентом.
  */
 @Entity
 @Table(name = "tickets")
@@ -31,9 +31,9 @@ public class Ticket {
     @Column(name = "ticket_id")
     private Long ticketId;
 
-    /** Клиент, создавший обращение; связь может отсутствовать. */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    /** Клиент, создавший обращение; обязателен для каждого обращения. */
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @Column(name = "product_purchased", length = 150)

@@ -43,7 +43,7 @@ public class TicketDetailDTO implements Serializable {
 
     /**
      * Создаёт представление из обращения и связанного с ним клиента.
-     * Отсутствующий клиент допускается, поскольку связь в базе может быть пустой.
+     * Клиент обязателен для каждого обращения.
      *
      * @param ticket найденное обращение
      */
@@ -62,9 +62,9 @@ public class TicketDetailDTO implements Serializable {
         this.firstResponseTime = ticket.getFirstResponseTime();
         this.timeToResolution = ticket.getTimeToResolution();
         this.satisfactionRating = ticket.getSatisfactionRating();
-        this.customerName = c != null ? c.getName() : null;
-        this.customerEmail = c != null ? c.getEmail() : null;
-        this.customerAge = c != null ? c.getAge() : null;
-        this.customerGender = c != null ? c.getGender() : null;
+        this.customerName = c.getName();
+        this.customerEmail = c.getEmail();
+        this.customerAge = c.getAge();
+        this.customerGender = c.getGender();
     }
 }
