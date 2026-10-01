@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>Add Ticket - Ticket Support</title>
+    <h:outputStylesheet library="css" name="common.css" />
+    <h:outputStylesheet library="css" name="forms.css" />
+</h:head>
+
+<h:body>
+    <ui:include src="/WEB-INF/fragments/header.xhtml" />
+
+    <main class="container form-page">
+        <div class="form-navigation">
+            <h:link outcome="tickets" styleClass="btn btn-secondary">&#8592; Back to List</h:link>
+        </div>
+
+        <h:form id="createTicketForm" styleClass="card form-card">
+            <div class="form-card-header"><h2>Add Ticket</h2></div>
+            <div class="form-card-body">
+                <h:messages styleClass="form-messages" infoClass="message-info" errorClass="message-error" />
+                <div class="form-grid">
+                    <div class="form-field form-field-wide">
+                        <h:outputLabel for="customerEmail" value="Customer Email *" />
+                        <h:inputText id="customerEmail" value="#{ticketCreateBean.form.customerEmail}"
+                                     styleClass="form-control" maxlength="150" required="true"
+                                     requiredMessage="Customer email is required." pt:type="email"
+                                     pt:placeholder="example@mail.com" />
+                    </div>
+                    <div class="form-field form-field-wide">
+                        <h:outputLabel for="subject" value="Subject *" />
+                        <h:inputText id="subject" value="#{ticketCreateBean.form.subject}"
+                                     styleClass="form-control" maxlength="255" required="true"
+                                     requiredMessage="Subject is required." />
+                    </div>
+                    <div class="form-field form-field-wide">
+                        <h:outputLabel for="description" value="Description" />
+                        <h:inputTextarea id="description" value="#{ticketCreateBean.form.description}"
+                                         styleClass="form-control form-textarea" rows="4" />
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="status" value="Status" />
+                        <h:selectOneMenu id="status" value="#{ticketCreateBean.form.status}" styleClass="form-control">
+                            <f:selectItem itemLabel="Select status" itemValue="#{null}" />
+                            <f:selectItems value="#{ticketCreateBean.availableStatuses}" var="s"
+                                           itemLabel="#{s}" itemValue="#{s}" />
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="priority" value="Priority" />
+                        <h:selectOneMenu id="priority" value="#{ticketCreateBean.form.priority}" styleClass="form-control">
+                            <f:selectItem itemLabel="Select priority" itemValue="#{null}" />
+                            <f:selectItems value="#{ticketCreateBean.availablePriorities}" var="p"
+                                           itemLabel="#{p}" itemValue="#{p}" />
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="ticketType" value="Type" />
+                        <h:selectOneMenu id="ticketType" value="#{ticketCreateBean.form.ticketType}" styleClass="form-control">
+                            <f:selectItem itemLabel="Select type" itemValue="#{null}" />
+                            <f:selectItems value="#{ticketCreateBean.availableTicketTypes}" var="t"
+                                           itemLabel="#{t}" itemValue="#{t}" />
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="channel" value="Channel" />
+                        <h:selectOneMenu id="channel" value="#{ticketCreateBean.form.channel}" styleClass="form-control">
+                            <f:selectItem itemLabel="Select channel" itemValue="#{null}" />
+                            <f:selectItems value="#{ticketCreateBean.availableChannels}" var="c"
+                                           itemLabel="#{c}" itemValue="#{c}" />
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="productPurchased" value="Product" />
+                        <h:inputText id="productPurchased" value="#{ticketCreateBean.form.productPurchased}"
+                                     styleClass="form-control" maxlength="150" />
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="dateOfPurchase" value="Purchase Date" />
+                        <h:inputText id="dateOfPurchase" value="#{ticketCreateBean.form.dateOfPurchase}"
+                                     styleClass="form-control" pt:type="date" />
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="firstResponseTime" value="First Response" />
+                        <h:inputText id="firstResponseTime" value="#{ticketCreateBean.form.firstResponseTime}"
+                                     styleClass="form-control" pt:placeholder="yyyy-MM-ddTHH:mm:ss" />
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="timeToResolution" value="Time to Resolution" />
+                        <h:inputText id="timeToResolution" value="#{ticketCreateBean.form.timeToResolution}"
+                                     styleClass="form-control" pt:placeholder="yyyy-MM-ddTHH:mm:ss" />
+                    </div>
+                    <div class="form-field">
+                        <h:outputLabel for="satisfactionRating" value="Satisfaction (1–5)" />
+                        <h:inputText id="satisfactionRating" value="#{ticketCreateBean.form.satisfactionRating}"
+                                     styleClass="form-control" pt:type="number" pt:min="1" pt:max="5" />
+                    </div>
+                    <div class="form-field form-field-wide">
+                        <h:outputLabel for="resolution" value="Resolution" />
+                        <h:inputTextarea id="resolution" value="#{ticketCreateBean.form.resolution}"
+                                         styleClass="form-control form-textarea" rows="3" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-card-actions">
+                <h:commandButton value="Add Ticket" styleClass="btn btn-primary"
+                                 action="#{ticketCreateBean.create}" />
+            </div>
+        </h:form>
+
+        <h:link id="addCustomerSuggestion" outcome="add-customer" value="Add Customer"
+                style="display: none">
+            <f:param name="email" value="#{ticketCreateBean.form.customerEmail}" />
+        </h:link>
+        <h:outputScript rendered="#{ticketCreateBean.customerNotFound}">
+            window.addEventListener('load', function () {
+                if (window.confirm('Customer with this email was not found. Add a new customer?')) {
+                    window.location.assign(document.getElementById('addCustomerSuggestion').href);
+                }
+            });
+        </h:outputScript>
+    </main>
+</h:body>
+</html>

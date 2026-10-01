@@ -1,0 +1,109 @@
+.card {
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.card-body {
+    padding: 24px;
+}
+
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.detail-table tr:not(:last-child) td {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-table td {
+    padding: 12px 0;
+    vertical-align: top;
+}
+
+.detail-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 200px;
+}
+
+.detail-value {
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.multiline {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.detail-navigation {
+    margin-bottom: 16px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.detail-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+}
+
+.detail-actions > .btn + .btn {
+    margin-left: 12px;
+}
+
+.detail-actions .btn {
+    min-width: 112px;
+}
+
+.edit-ticket-id {
+    display: inline-flex;
+    padding: 6px 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: var(--info-bg);
+    color: var(--info-text);
+    font-weight: 600;
+}
+
+.edit-form-grid .form-control {
+    min-height: 42px;
+}
+
+.edit-form-grid .form-textarea {
+    min-height: 104px;
+}
+
+@media (max-width: 1100px) {
+    .edit-form-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .detail-grid { grid-template-columns: 1fr; }
+    .detail-label { width: 120px; }
+    .card-header { flex-wrap: wrap; gap: 12px; }
+}
